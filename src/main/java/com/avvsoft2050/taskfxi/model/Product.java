@@ -21,4 +21,9 @@ public class Product {
 
     @Column(name = "product_cost")
     private int productCost;
+
+    @Override
+    public String toString() {
+        return " " + productId + "  " + productName + "  " + productCost;
+    }
 }
