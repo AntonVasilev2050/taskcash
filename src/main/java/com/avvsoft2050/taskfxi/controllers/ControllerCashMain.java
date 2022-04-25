@@ -47,26 +47,23 @@ public class ControllerCashMain {
 
     public void textFieldSelectAction() {
         String select = textFieldSelect.getText();
-        int quantity = 0;
+        int quantity = 1;
         Product product = productService.findProduct(select);
-        quantity = productsInCart.get(product.getProductName());
         if (productsInCart.containsKey(product.getProductName())) {
-            productsInCart.replace(product.getProductName(), quantity++);
+            quantity = productsInCart.get(product.getProductName()) + 1;
+            productsInCart.replace(product.getProductName(), quantity);
         } else {
             productsInCart.put(product.getProductName(), quantity);
         }
-        if (!(product == null)) {
-
-            HBox productInCartHBox = new HBox();
-            String productInCartName = product.getProductName();
-            Label productInCartNameLabel = new Label(productInCartName);
-            productInCartNameLabel.setPrefWidth(350.0);
-            String productInCartCost = String.valueOf(product.getProductCost());
-            Label productInCartCostLabel = new Label(productInCartCost);
-            productInCartCostLabel.setPrefWidth(100.0);
-            Label productInCartQuantityLabel = new Label(String.valueOf(quantity));
-            productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel, productInCartQuantityLabel);
-            vBoxCart.getChildren().add(productInCartHBox);
-        }
+        HBox productInCartHBox = new HBox();
+        String productInCartName = product.getProductName();
+        Label productInCartNameLabel = new Label(productInCartName);
+        productInCartNameLabel.setPrefWidth(380.0);
+        String productInCartCost = String.valueOf(product.getProductCost());
+        Label productInCartCostLabel = new Label(productInCartCost);
+        productInCartCostLabel.setPrefWidth(100.0);
+        Label productInCartQuantityLabel = new Label(String.valueOf(quantity));
+        productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel, productInCartQuantityLabel);
+        vBoxCart.getChildren().add(productInCartHBox);
     }
 }
