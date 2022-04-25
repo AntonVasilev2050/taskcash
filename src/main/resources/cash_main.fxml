@@ -20,10 +20,10 @@
     </Label>
     <VBox id="vBoxCart" fx:id="vBoxCart" layoutX="10.0" layoutY="280.0" prefHeight="200.0" prefWidth="780.0">
         <HBox id="vBoxCartBar" fx:id="vBoxCartBar" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
-            <Label prefWidth="450.0" text="Наименование товара"/>
-            <Label id="labelProductCost" prefWidth="70.0" text="Цена"/>
-            <Label prefWidth="70.0" text="Количество"/>
-            <Label prefWidth="70.0" text="Стоимость"/>
+            <Label prefWidth="350.0" text="Наименование товара"/>
+            <Label prefWidth="100.0" text="Цена"/>
+            <Label prefWidth="100.0" text="Количество"/>
+            <Label prefWidth="100.0" text="Стоимость"/>
             <Label text="Удалять?"/>
         </HBox>
     </VBox>

@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @FxmlView("/cash_main.fxml")
@@ -34,7 +36,7 @@ public class ControllerCashMain {
     public void showAllProducts(MouseEvent mouseEvent) {
         List<Product> products = productService.getAllProducts();
         List<String> productsList = new ArrayList<>();
-        for (Product product: products){
+        for (Product product : products) {
             productsList.add(product.toString());
         }
         ObservableList<String> productsObserve = FXCollections.observableList(productsList);
@@ -43,18 +45,25 @@ public class ControllerCashMain {
 
     public void textFieldSelectAction() {
         String select = textFieldSelect.getText();
-        System.out.println(select);
+        int quantity = 0;
+        Map<String, Integer> productsInCart = new HashMap<>();
         Product product = productService.findProduct(select);
-        System.out.println(product.toString());
-        if(!(product == null)){
+        if(productsInCart.containsKey(product.getProductName())){
+            quantity = productsInCart.get(product);
+            productsInCart.put(product.getProductName(), quantity++);
+        }
+        if (!(product == null)) {
+
             HBox productInCartHBox = new HBox();
-            String productInCartId = String.valueOf(product.getProductId());
-            Label productInCartIdLabel = new Label(productInCartId);
             String productInCartName = product.getProductName();
             Label productInCartNameLabel = new Label(productInCartName);
+            productInCartNameLabel.setPrefWidth(350.0);
             String productInCartCost = String.valueOf(product.getProductCost());
             Label productInCartCostLabel = new Label(productInCartCost);
-            productInCartHBox.getChildren().addAll(productInCartIdLabel, productInCartNameLabel, productInCartCostLabel);
+            productInCartCostLabel.setPrefWidth(100.0);
+            quantity++;
+            Label productInCartQuantityLabel = new Label(String.valueOf(quantity));
+            productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel);
             vBoxCart.getChildren().add(productInCartHBox);
         }
     }
