@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerCashMain">
+    <VBox layoutX="10.0" prefHeight="250.0" prefWidth="780.0" spacing="10.0">
+        <ListView id="listViewProducts" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="780.0" />
+        <TextField id="textFieldSelect" promptText="Введите наименование товара" />
+        <Label text="Label" />
+    </VBox>
+    <Label id="labelCart" layoutX="10.0" layoutY="230.0" text="Корзина" textAlignment="CENTER">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <VBox id="vBoxCart" layoutX="10.0" layoutY="270.0" prefHeight="200.0" prefWidth="780.0">
+        <HBox id="vBoxCartBar" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
+            <Label prefWidth="450.0" text="Наименование товара" />
+            <Label id="labelProductCost" prefWidth="70.0" text="Цена" />
+            <Label prefWidth="70.0" text="Количество" />
+            <Label prefWidth="70.0" text="Стоимость" />
+            <Label text="Удалять?" />
+        </HBox>
+    </VBox>
+    <Button layoutX="700.0" layoutY="560.0" mnemonicParsing="false" text="ОПЛАТИТЬ" />
+</Pane>
