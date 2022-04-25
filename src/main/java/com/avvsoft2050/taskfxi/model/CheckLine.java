@@ -1,12 +1,13 @@
 package com.avvsoft2050.taskfxi.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "checklines")
 public class CheckLine {
@@ -29,5 +30,5 @@ public class CheckLine {
     private int quantity;
 
     @Column(name = "line_amount")
-    private int line_amount;
+    private int lineAmount;
 }

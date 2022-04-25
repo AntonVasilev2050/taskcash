@@ -1,6 +1,8 @@
 package com.avvsoft2050.taskfxi.controllers;
 
+import com.avvsoft2050.taskfxi.model.CheckLine;
 import com.avvsoft2050.taskfxi.model.Product;
+import com.avvsoft2050.taskfxi.services.CheckLineServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +30,9 @@ public class ControllerCashMain {
     @Autowired
     ProductServiceImpl productService;
 
+    @Autowired
+    CheckLineServiceImpl checkLineService;
+
     private final Map<String, Integer> productsInCart = new HashMap<>();
     @FXML
     public TextField textFieldSelect;
@@ -47,23 +52,43 @@ public class ControllerCashMain {
 
     public void textFieldSelectAction() {
         String select = textFieldSelect.getText();
-        int quantity = 1;
         Product product = productService.findProduct(select);
-        if (productsInCart.containsKey(product.getProductName())) {
-            quantity = productsInCart.get(product.getProductName()) + 1;
-            productsInCart.replace(product.getProductName(), quantity);
+        List<CheckLine> checkLineList = checkLineService.getAllCheckLines();
+        System.out.println(checkLineList.toString());
+        if (checkLineList.isEmpty()) {
+            checkLineService.saveCheckLine(new CheckLine(
+                    0,
+                    product.getProductId(),
+                    0,
+                    0,
+                    1,
+                    product.getProductCost()));
         } else {
-            productsInCart.put(product.getProductName(), quantity);
+            for (CheckLine checkLine : checkLineList) {
+                if (product.getProductId() == checkLine.getProductId()) {
+                    checkLine.setQuantity(checkLine.getQuantity() + 1);
+                    checkLine.setLineAmount(product.getProductCost() * checkLine.getQuantity());
+                    checkLineService.saveCheckLine(checkLine);
+                }
+            }
         }
-        HBox productInCartHBox = new HBox();
-        String productInCartName = product.getProductName();
-        Label productInCartNameLabel = new Label(productInCartName);
-        productInCartNameLabel.setPrefWidth(380.0);
-        String productInCartCost = String.valueOf(product.getProductCost());
-        Label productInCartCostLabel = new Label(productInCartCost);
-        productInCartCostLabel.setPrefWidth(100.0);
-        Label productInCartQuantityLabel = new Label(String.valueOf(quantity));
-        productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel, productInCartQuantityLabel);
-        vBoxCart.getChildren().add(productInCartHBox);
+        checkLineList = checkLineService.getAllCheckLines();
+        vBoxCart.getChildren();
+        for (CheckLine checkLine : checkLineList) {
+            int productId = checkLine.getProductId();
+            product = productService.getProduct(productId);
+            HBox productInCartHBox = new HBox();
+            String productInCartName = String.valueOf(product.getProductName());
+            Label productInCartNameLabel = new Label(productInCartName);
+            productInCartNameLabel.setPrefWidth(380.0);
+            String productInCartCost = String.valueOf(product.getProductCost());
+            Label productInCartCostLabel = new Label(productInCartCost);
+            productInCartCostLabel.setPrefWidth(100.0);
+            String productInCartQuantity = String.valueOf(checkLine.getQuantity());
+            Label productInCartQuantityLabel = new Label(productInCartQuantity);
+            productInCartQuantityLabel.setPrefWidth(100);
+            productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel, productInCartQuantityLabel);
+            vBoxCart.getChildren().add(productInCartHBox);
+        }
     }
 }
