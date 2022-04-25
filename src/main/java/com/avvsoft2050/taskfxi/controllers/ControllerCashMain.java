@@ -27,6 +27,8 @@ public class ControllerCashMain {
 
     @Autowired
     ProductServiceImpl productService;
+
+    private final Map<String, Integer> productsInCart = new HashMap<>();
     @FXML
     public TextField textFieldSelect;
     @FXML
@@ -46,11 +48,12 @@ public class ControllerCashMain {
     public void textFieldSelectAction() {
         String select = textFieldSelect.getText();
         int quantity = 0;
-        Map<String, Integer> productsInCart = new HashMap<>();
         Product product = productService.findProduct(select);
-        if(productsInCart.containsKey(product.getProductName())){
-            quantity = productsInCart.get(product);
-            productsInCart.put(product.getProductName(), quantity++);
+        quantity = productsInCart.get(product.getProductName());
+        if (productsInCart.containsKey(product.getProductName())) {
+            productsInCart.replace(product.getProductName(), quantity++);
+        } else {
+            productsInCart.put(product.getProductName(), quantity);
         }
         if (!(product == null)) {
 
@@ -61,9 +64,8 @@ public class ControllerCashMain {
             String productInCartCost = String.valueOf(product.getProductCost());
             Label productInCartCostLabel = new Label(productInCartCost);
             productInCartCostLabel.setPrefWidth(100.0);
-            quantity++;
             Label productInCartQuantityLabel = new Label(String.valueOf(quantity));
-            productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel);
+            productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel, productInCartQuantityLabel);
             vBoxCart.getChildren().add(productInCartHBox);
         }
     }
