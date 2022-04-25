@@ -94,4 +94,8 @@ public class ControllerCashMain {
             vBoxCart.getChildren().add(productInCartHBox);
         }
     }
+
+    public void buttonShowAllProductsClick() {
+        showAllProducts();
+    }
 }
