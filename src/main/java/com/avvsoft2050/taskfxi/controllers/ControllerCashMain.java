@@ -1,27 +1,24 @@
 package com.avvsoft2050.taskfxi.controllers;
 
-import com.avvsoft2050.taskfxi.model.CheckLine;
 import com.avvsoft2050.taskfxi.model.Product;
 import com.avvsoft2050.taskfxi.model.ProductInCart;
-import com.avvsoft2050.taskfxi.services.CheckLineServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductInCartServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @FxmlView("/cash_main.fxml")
@@ -44,35 +41,33 @@ public class ControllerCashMain {
     @FXML
     public TextField textFieldSelect;
     @FXML
-    public ListView<String> listViewProducts;
+    public ListView<Product> listViewProducts;
     public VBox vBoxCart;
-
-    public void showAllProducts() {
-        List<Product> products = productService.getAllProducts();
-        List<String> productsList = new ArrayList<>();
-        for (Product product : products) {
-            productsList.add(product.toString());
-        }
-        ObservableList<String> productsObserve = FXCollections.observableList(productsList);
-        listViewProducts.setItems(productsObserve);
-    }
+    public Product selectedProduct;
 
     public void textFieldSelectAction() {
         String select = textFieldSelect.getText();
-        Product product = productService.findProduct(select);
-        if (product == null) {
+        selectedProduct = productService.findProduct(select);
+        putProductIntoCart(selectedProduct);
+    }
+
+    private void putProductIntoCart(Product selectedProduct){
+        if (selectedProduct == null) {
             return;
         }
-        if(productInCartService.findProduct(product.getProductName()) == null){
-            ProductInCart productInCart = new ProductInCart(0, product.getProductName(), product.getProductCost(), 1);
+        ProductInCart productInCart = productInCartService.findProduct(selectedProduct.getProductName());
+        if (productInCart == null) {
+            productInCart = new ProductInCart(0, selectedProduct.getProductName(), selectedProduct.getProductCost(), 1);
             productInCartService.saveProduct(productInCart);
-        }
-        else {
-            ProductInCart productInCart = productInCartService.findProduct(product.getProductName());
+        } else {
             productInCart.setQuantity(productInCart.getQuantity() + 1);
             productInCartService.saveProduct(productInCart);
         }
-        productsInCart = productInCartService.getAllProducts();
+        showProductsInCart();
+    }
+
+    private void showProductsInCart() {
+        productsInCart = productInCartService.getAllProductsSorted();
         vBoxCart.getChildren().clear();
         for (ProductInCart p : productsInCart) {
             HBox productInCartHBox = new HBox();
@@ -89,6 +84,10 @@ public class ControllerCashMain {
             Label productInCartAmountLabel = new Label(totalAmount);
             productInCartAmountLabel.setPrefWidth(100);
             Button deleteProductInCart = new Button("Удалить");
+            deleteProductInCart.setOnAction(event -> {
+                productInCartService.deleteProductById(p.getProductId());
+                showProductsInCart();
+            });
             productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel,
                     productInCartQuantityLabel, productInCartAmountLabel, deleteProductInCart);
             vBoxCart.getChildren().add(productInCartHBox);
@@ -96,6 +95,14 @@ public class ControllerCashMain {
     }
 
     public void buttonShowAllProductsClick() {
-        showAllProducts();
+        List<Product> products = productService.getAllProducts();
+        ObservableList<Product> productsObserve = FXCollections.observableList(products);
+        listViewProducts.setItems(productsObserve);
+        listViewProducts.setOnMouseClicked(event -> {
+            selectedProduct = listViewProducts.getFocusModel().getFocusedItem();
+            putProductIntoCart(selectedProduct);
+        });
+        showProductsInCart();
     }
+
 }

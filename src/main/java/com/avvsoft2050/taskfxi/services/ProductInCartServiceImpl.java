@@ -1,15 +1,14 @@
 package com.avvsoft2050.taskfxi.services;
 
 import com.avvsoft2050.taskfxi.dao.ProductInCartRepository;
-import com.avvsoft2050.taskfxi.dao.ProductRepository;
 import com.avvsoft2050.taskfxi.model.ProductInCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductInCartServiceImpl implements ProductInCartService{
@@ -18,8 +17,10 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     ProductInCartRepository productInCartRepository;
 
     @Override
-    public List<ProductInCart> getAllProducts() {
-        return productInCartRepository.findAll();
+    public List<ProductInCart> getAllProductsSorted() {
+        return productInCartRepository.findAll().stream()
+                .sorted(Comparator.comparingInt(ProductInCart::getProductId)).collect(Collectors.toList());
+
     }
 
     @Override

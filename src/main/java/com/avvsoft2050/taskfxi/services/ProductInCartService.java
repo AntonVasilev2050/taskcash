@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface ProductInCartService {
-    List<ProductInCart> getAllProducts();
+    List<ProductInCart> getAllProductsSorted();
     ProductInCart saveProduct(ProductInCart productInCart);
     void deleteProductById(int productId);
     ProductInCart getProductById(int productId);

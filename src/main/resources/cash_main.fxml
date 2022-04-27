@@ -7,11 +7,12 @@
 <Pane id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerCashMain">
     <VBox layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="780.0" spacing="10.0">
         <HBox>
-            <ListView id="listViewProducts" fx:id="listViewProducts" layoutX="10.0" layoutY="10.0" onMouseClicked="#showAllProducts" prefHeight="200.0" prefWidth="780.0" />
+            <ListView id="listViewProducts" fx:id="listViewProducts" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="780.0" />
             <Button fx:id="buttonShowAllProducts" onAction="#buttonShowAllProductsClick" prefHeight="200.0" prefWidth="200.0" text="Показать &#10;товары" textAlignment="CENTER">
-            <font>
-               <Font size="14.0" />
-            </font></Button>
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
         </HBox>
         <TextField id="textFieldSelect" fx:id="textFieldSelect" onAction="#textFieldSelectAction" promptText="Введите наименование товара" />
     </VBox>
@@ -28,7 +29,16 @@
         <Label fx:id="deleteYes" text="Удалять?" />
     </HBox>
     <VBox id="vBoxCart" fx:id="vBoxCart" layoutX="10.0" layoutY="305.0" prefHeight="250.0" prefWidth="780.0" spacing="5.0">
-
     </VBox>
-    <Button layoutX="700.0" layoutY="560.0" mnemonicParsing="false" text="ОПЛАТИТЬ" />
+    <HBox layoutX="540.0" layoutY="560.0" spacing="20.0">
+        <Label text="Итого: " textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <Label text="       0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <Button layoutX="700.0" layoutY="560.0" mnemonicParsing="false" text="ОПЛАТИТЬ" />
+    </HBox>
 </Pane>
