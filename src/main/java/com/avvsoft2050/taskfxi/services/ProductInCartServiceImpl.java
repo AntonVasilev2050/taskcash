@@ -34,6 +34,11 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     }
 
     @Override
+    public void deleteAllProducts() {
+        productInCartRepository.deleteAll();
+    }
+
+    @Override
     public ProductInCart getProductById(int productId) {
         ProductInCart productInCart = new ProductInCart();
         Optional<ProductInCart> optional = productInCartRepository.findById(productId);

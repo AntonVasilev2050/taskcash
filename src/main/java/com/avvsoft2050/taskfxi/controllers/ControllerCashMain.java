@@ -1,7 +1,9 @@
 package com.avvsoft2050.taskfxi.controllers;
 
+import com.avvsoft2050.taskfxi.model.Check;
 import com.avvsoft2050.taskfxi.model.Product;
 import com.avvsoft2050.taskfxi.model.ProductInCart;
+import com.avvsoft2050.taskfxi.services.CheckServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductInCartServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductServiceImpl;
 import javafx.collections.FXCollections;
@@ -21,6 +23,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +39,10 @@ public class ControllerCashMain {
     @Autowired
     ProductInCartServiceImpl productInCartService;
 
-    List<ProductInCart> productsInCart = new ArrayList<>();
+    @Autowired
+    CheckServiceImpl checkService;
 
+    List<ProductInCart> productsInCart = new ArrayList<>();
     public HBox vBoxCartBar;
     public Label productId;
     public Label productCost;
@@ -74,6 +80,8 @@ public class ControllerCashMain {
 
     private void showProductsInCart() {
         productsInCart = productInCartService.getAllProductsSorted();
+        total = 0;
+        labelTotal.setText(String.valueOf(total));
         vBoxCart.getChildren().clear();
         for (ProductInCart p : productsInCart) {
             HBox productInCartHBox = new HBox();
@@ -94,11 +102,11 @@ public class ControllerCashMain {
                 productInCartService.deleteProductById(p.getProductId());
                 showProductsInCart();
             });
+            total += p.getProductCost() * p.getQuantity();
+            labelTotal.setText(String.valueOf(total));
             productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel,
                     productInCartQuantityLabel, productInCartAmountLabel, deleteProductInCart);
             vBoxCart.getChildren().add(productInCartHBox);
-            total += p.getProductCost() * p.getQuantity();
-            labelTotal.setText(String.valueOf(total));
         }
     }
 
@@ -123,23 +131,25 @@ public class ControllerCashMain {
         textFieldPaymentAmount.setPromptText("Введите сумму");
         Button buttonOK = new Button("Оплатить");
         hBox.getChildren().addAll(label, textFieldPaymentAmount, buttonOK);
-
         pay.getChildren().addAll(hBox);
         payStage.setScene(new Scene(pay, 420, 200));
-//        payStage.setX(200);
-//        payStage.setY(200);
         payStage.setTitle("Оплата");
         payStage.show();
         buttonOK.setOnAction(event -> {
             int paymentAmount = Integer.parseInt(textFieldPaymentAmount.getText());
-            if (paymentAmount == total){
+            if (paymentAmount == total) {
                 saveCheck();
                 payStage.close();
+                productInCartService.deleteAllProducts();
+                showProductsInCart();
             }
         });
     }
 
     private void saveCheck() {
-        System.out.println("The check was saved");
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        checkService.saveCheck(new Check(0, date, time, total));
+        System.out.println("The check was saved " + date + " " + time);
     }
 }

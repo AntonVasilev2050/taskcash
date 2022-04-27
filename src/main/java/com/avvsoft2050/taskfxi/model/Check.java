@@ -1,5 +1,6 @@
 package com.avvsoft2050.taskfxi.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
