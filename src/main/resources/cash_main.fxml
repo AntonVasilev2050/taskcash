@@ -30,15 +30,15 @@
     </HBox>
     <VBox id="vBoxCart" fx:id="vBoxCart" layoutX="10.0" layoutY="305.0" prefHeight="250.0" prefWidth="780.0" spacing="5.0">
     </VBox>
-    <HBox layoutX="540.0" layoutY="560.0" spacing="20.0">
+    <HBox layoutX="530.0" layoutY="560.0" spacing="20.0">
         <Label text="Итого: " textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font></Label>
-        <Label text="       0">
+        <Label fx:id="labelTotal" prefWidth="50.0" text="       0" textFill="#0ca222">
          <font>
             <Font size="18.0" />
          </font></Label>
-        <Button layoutX="700.0" layoutY="560.0" mnemonicParsing="false" text="ОПЛАТИТЬ" />
+        <Button fx:id="buttonPay" layoutX="700.0" layoutY="560.0" mnemonicParsing="false" onAction="#buttonPayClicked" text="К оплате" />
     </HBox>
 </Pane>

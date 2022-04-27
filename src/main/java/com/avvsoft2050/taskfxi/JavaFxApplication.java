@@ -14,6 +14,7 @@ public class JavaFxApplication extends Application {
 
     private ConfigurableApplicationContext applicationContext;
 
+
     @Override
     public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
@@ -37,5 +38,6 @@ public class JavaFxApplication extends Application {
         this.applicationContext.close();
         Platform.exit();
     }
+
 
 }
