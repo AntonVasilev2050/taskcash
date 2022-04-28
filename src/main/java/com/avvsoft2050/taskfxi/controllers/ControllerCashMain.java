@@ -153,12 +153,21 @@ public class ControllerCashMain {
         payStage.setTitle("Оплата");
         payStage.show();
         buttonOK.setOnAction(event -> {
-            int paymentAmount = Integer.parseInt(textFieldPaymentAmount.getText());
+            int paymentAmount = 0;
+            try {
+                paymentAmount = Integer.parseInt(textFieldPaymentAmount.getText());
+            } catch (Exception e) {
+                textFieldPaymentAmount.setText("Ошибка ввода");
+            }
             if (paymentAmount == total) {
                 saveCheck();
                 payStage.close();
                 productInCartService.deleteAllProducts();
                 showProductsInCart();
+            } else {
+                if (paymentAmount != 0) {
+                    textFieldPaymentAmount.setText("Не верная сумма");
+                }
             }
         });
     }
