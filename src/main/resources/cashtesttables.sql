@@ -6,8 +6,11 @@ CREATE TABLE goods
 );
 INSERT INTO goods
 VALUES (1, 'Product1', 1500),
-       (2, 'Product2', 1900),
-       (3, 'Product3', 300);
+       (2, 'Coffee Americano', 120),
+       (3, 'Latte coffee', 150),
+       (4, 'Product2', 1900),
+       (5, 'Product3', 100),
+       (6, 'Coffee espresso', 70);
 
 CREATE TABLE checks
 (
@@ -16,11 +19,6 @@ CREATE TABLE checks
     check_time time,
     check_amount int
 );
-INSERT INTO checks
-VALUES (1, '2022-01-18', '15:00', 1500),
-       (2, '2022-01-19', '01:00', 40000),
-       (3, '2022-01-20', '09:00', 600);
-
 
 CREATE TABLE checklines
 (

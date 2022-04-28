@@ -59,6 +59,7 @@ public class ControllerCashMain {
     public Product selectedProduct;
     private int total = 0;
 
+    @FXML
     public void buttonShowAllProductsClick() {
         List<Product> products = productService.getAllProducts();
         showProducts(products);
@@ -74,7 +75,8 @@ public class ControllerCashMain {
         showProductsInCart();
     }
 
-    public void textFieldSelectReleased(KeyEvent keyEvent) {
+    @FXML
+    public void textFieldSelectReleased() {
         String select = textFieldSelect.getText().trim();
         System.out.println(select);
         List<Product> productsFiltered = productService.getAllProducts()
@@ -88,14 +90,14 @@ public class ControllerCashMain {
         }
     }
 
-
     private void putProductIntoCart(Product selectedProduct) {
         if (selectedProduct == null) {
             return;
         }
         ProductInCart productInCart = productInCartService.findProduct(selectedProduct.getProductName());
         if (productInCart == null) {
-            productInCart = new ProductInCart(0, selectedProduct.getProductName(), selectedProduct.getProductCost(), 1);
+            productInCart = new ProductInCart(
+                    0, selectedProduct.getProductName(), selectedProduct.getProductCost(), 1);
             productInCartService.saveProduct(productInCart);
         } else {
             productInCart.setQuantity(productInCart.getQuantity() + 1);
@@ -136,7 +138,7 @@ public class ControllerCashMain {
         }
     }
 
-    public void buttonPayClicked(ActionEvent actionEvent) {
+    public void buttonPayClicked() {
         Stage payStage = new Stage();
         Group pay = new Group();
         HBox hBox = new HBox();
