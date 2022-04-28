@@ -78,7 +78,6 @@ public class ControllerCashMain {
     @FXML
     public void textFieldSelectReleased() {
         String select = textFieldSelect.getText().trim();
-        System.out.println(select);
         List<Product> productsFiltered = productService.getAllProducts()
                 .stream().filter(product -> product.getProductName().contains(select))
                 .collect(Collectors.toList());

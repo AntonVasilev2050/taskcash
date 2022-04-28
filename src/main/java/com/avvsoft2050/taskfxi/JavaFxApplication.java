@@ -30,6 +30,7 @@ public class JavaFxApplication extends Application {
         Parent root = fxWeaver.loadView(ControllerCashMain.class);      //подключаем контроллер
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Кофемат");
         stage.show();
     }
 
