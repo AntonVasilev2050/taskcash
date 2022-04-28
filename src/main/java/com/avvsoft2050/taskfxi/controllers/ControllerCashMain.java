@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @FxmlView("/cash_main.fxml")
@@ -57,11 +59,35 @@ public class ControllerCashMain {
     public Product selectedProduct;
     private int total = 0;
 
-    public void textFieldSelectAction() {
-        String select = textFieldSelect.getText();
-        selectedProduct = productService.findProduct(select);
-        putProductIntoCart(selectedProduct);
+    public void buttonShowAllProductsClick() {
+        List<Product> products = productService.getAllProducts();
+        showProducts(products);
     }
+
+    private void showProducts(List<Product> products) {
+        ObservableList<Product> productsObserve = FXCollections.observableList(products);
+        listViewProducts.setItems(productsObserve);
+        listViewProducts.setOnMouseClicked(event -> {
+            selectedProduct = listViewProducts.getFocusModel().getFocusedItem();
+            putProductIntoCart(selectedProduct);
+        });
+        showProductsInCart();
+    }
+
+    public void textFieldSelectReleased(KeyEvent keyEvent) {
+        String select = textFieldSelect.getText().trim();
+        System.out.println(select);
+        List<Product> productsFiltered = productService.getAllProducts()
+                .stream().filter(product -> product.getProductName().contains(select))
+                .collect(Collectors.toList());
+        try {
+            showProducts(productsFiltered);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            ;
+        }
+    }
+
 
     private void putProductIntoCart(Product selectedProduct) {
         if (selectedProduct == null) {
@@ -110,17 +136,6 @@ public class ControllerCashMain {
         }
     }
 
-    public void buttonShowAllProductsClick() {
-        List<Product> products = productService.getAllProducts();
-        ObservableList<Product> productsObserve = FXCollections.observableList(products);
-        listViewProducts.setItems(productsObserve);
-        listViewProducts.setOnMouseClicked(event -> {
-            selectedProduct = listViewProducts.getFocusModel().getFocusedItem();
-            putProductIntoCart(selectedProduct);
-        });
-        showProductsInCart();
-    }
-
     public void buttonPayClicked(ActionEvent actionEvent) {
         Stage payStage = new Stage();
         Group pay = new Group();
@@ -128,7 +143,7 @@ public class ControllerCashMain {
         hBox.setSpacing(10);
         Label label = new Label("Сумма оплаты");
         TextField textFieldPaymentAmount = new TextField();
-        textFieldPaymentAmount.setPromptText("Введите сумму");
+        textFieldPaymentAmount.setPromptText(" Введите сумму");
         Button buttonOK = new Button("Оплатить");
         hBox.getChildren().addAll(label, textFieldPaymentAmount, buttonOK);
         pay.getChildren().addAll(hBox);

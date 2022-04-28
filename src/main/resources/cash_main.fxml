@@ -14,7 +14,7 @@
                 </font>
             </Button>
         </HBox>
-        <TextField id="textFieldSelect" fx:id="textFieldSelect" onAction="#textFieldSelectAction" promptText="Введите наименование товара" />
+        <TextField id="textFieldSelect" fx:id="textFieldSelect" onKeyReleased="#textFieldSelectReleased" promptText="Введите наименование товара" />
     </VBox>
     <Label id="labelCart" layoutX="10.0" layoutY="255.0" text="Корзина" textAlignment="CENTER">
         <font>
@@ -32,13 +32,15 @@
     </VBox>
     <HBox layoutX="530.0" layoutY="560.0" spacing="20.0">
         <Label text="Итого: " textAlignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
         <Label fx:id="labelTotal" prefWidth="50.0" text="       0" textFill="#0ca222">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
         <Button fx:id="buttonPay" layoutX="700.0" layoutY="560.0" mnemonicParsing="false" onAction="#buttonPayClicked" text="К оплате" />
     </HBox>
 </Pane>

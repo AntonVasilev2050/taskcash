@@ -6,6 +6,7 @@ import com.avvsoft2050.taskfxi.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +34,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findProduct(String productName) {
         return productRepository.findFirstByProductNameEquals(productName);
+    }
+
+    @Override
+    public ArrayList<Product> getAllByProductNameIsLike(String productName) {
+        return productRepository.getAllByProductNameIsLike(productName);
     }
 }
