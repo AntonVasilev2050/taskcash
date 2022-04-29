@@ -5,7 +5,7 @@ CREATE TABLE goods
     product_cost int
 );
 INSERT INTO goods
-VALUES (1, 'Product1', 1500),
+VALUES (1, 'Product12', 1500),
        (2, 'Coffee Americano', 120),
        (3, 'Latte coffee', 150),
        (4, 'Product2', 1900),
