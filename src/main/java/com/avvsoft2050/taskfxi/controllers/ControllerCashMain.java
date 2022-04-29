@@ -8,15 +8,16 @@ import com.avvsoft2050.taskfxi.services.ProductInCartServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,15 +25,18 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 @Component
 @FxmlView("/cash_main.fxml")
-public class ControllerCashMain {
+public class ControllerCashMain implements Initializable {
 
     public Label labelTotal;
     @Autowired
@@ -51,15 +55,17 @@ public class ControllerCashMain {
     public Label productAmount;
     public Label totalAmount;
     public Label deleteYes;
-    @FXML
     public TextField textFieldSelect;
-    @FXML
     public ListView<Product> listViewProducts;
     public VBox vBoxCart;
     public Product selectedProduct;
     private int total = 0;
 
-    @FXML
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        buttonShowAllProductsClick();
+    }
+
     public void buttonShowAllProductsClick() {
         List<Product> products = productService.getAllProducts();
         showProducts(products);
@@ -75,7 +81,6 @@ public class ControllerCashMain {
         showProductsInCart();
     }
 
-    @FXML
     public void textFieldSelectReleased() {
         String select = textFieldSelect.getText().trim();
         List<Product> productsFiltered = productService.getAllProducts()

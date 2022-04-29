@@ -14,7 +14,6 @@ public class JavaFxApplication extends Application {
 
     private ConfigurableApplicationContext applicationContext;
 
-
     @Override
     public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
