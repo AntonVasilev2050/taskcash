@@ -1,15 +1,15 @@
 package com.avvsoft2050.taskfxi.controllers;
 
 import com.avvsoft2050.taskfxi.model.Check;
+import com.avvsoft2050.taskfxi.model.CheckLine;
 import com.avvsoft2050.taskfxi.model.Product;
 import com.avvsoft2050.taskfxi.model.ProductInCart;
+import com.avvsoft2050.taskfxi.services.CheckLineServiceImpl;
 import com.avvsoft2050.taskfxi.services.CheckServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductInCartServiceImpl;
 import com.avvsoft2050.taskfxi.services.ProductServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,12 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -31,24 +29,21 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 @Component
 @FxmlView("/cash_main.fxml")
 public class ControllerCashMain implements Initializable {
 
-    public Label labelTotal;
-    @Autowired
-    ProductServiceImpl productService;
+    final ProductServiceImpl productService;
+    final ProductInCartServiceImpl productInCartService;
+    final CheckServiceImpl checkService;
+    final CheckLineServiceImpl checkLineService;
 
-    @Autowired
-    ProductInCartServiceImpl productInCartService;
-
-    @Autowired
-    CheckServiceImpl checkService;
 
     List<ProductInCart> productsInCart = new ArrayList<>();
+    List<CheckLine> checkLines = new ArrayList<>();
+    public Label labelTotal;
     public HBox vBoxCartBar;
     public Label productId;
     public Label productCost;
@@ -60,6 +55,18 @@ public class ControllerCashMain implements Initializable {
     public VBox vBoxCart;
     public Product selectedProduct;
     private int total = 0;
+
+
+
+    public ControllerCashMain(ProductServiceImpl productService,
+                              ProductInCartServiceImpl productInCartService,
+                              CheckServiceImpl checkService,
+                              CheckLineServiceImpl checkLineService) {
+        this.productService = productService;
+        this.productInCartService = productInCartService;
+        this.checkService = checkService;
+        this.checkLineService = checkLineService;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,13 +91,13 @@ public class ControllerCashMain implements Initializable {
     public void textFieldSelectReleased() {
         String select = textFieldSelect.getText().trim();
         List<Product> productsFiltered = productService.getAllProducts()
-                .stream().filter(product -> product.getProductName().contains(select))
+                .stream().filter(product -> product.getProductName().contains(select)
+                        || String.valueOf(product.getProductCost()).startsWith(select))
                 .collect(Collectors.toList());
         try {
             showProducts(productsFiltered);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            ;
         }
     }
 
@@ -113,9 +120,12 @@ public class ControllerCashMain implements Initializable {
     private void showProductsInCart() {
         productsInCart = productInCartService.getAllProductsSorted();
         total = 0;
+        int lineNumber = 0;
         labelTotal.setText(String.valueOf(total));
         vBoxCart.getChildren().clear();
+        checkLines.clear();
         for (ProductInCart p : productsInCart) {
+            lineNumber++;
             HBox productInCartHBox = new HBox();
             String productInCartName = p.getProductName();
             Label productInCartNameLabel = new Label(productInCartName);
@@ -130,6 +140,15 @@ public class ControllerCashMain implements Initializable {
             Label productInCartAmountLabel = new Label(totalAmount);
             productInCartAmountLabel.setPrefWidth(100);
             Button deleteProductInCart = new Button("Удалить");
+
+            CheckLine checkLine = new CheckLine();
+            checkLine.setProductId(p.getProductId());
+            checkLine.setCheckId(0);
+            checkLine.setLineNumber(lineNumber);
+            checkLine.setQuantity(p.getQuantity());
+            checkLine.setLineAmount(checkLine.getQuantity() * p.getProductCost());
+            checkLines.add(checkLine);
+
             deleteProductInCart.setOnAction(event -> {
                 productInCartService.deleteProductById(p.getProductId());
                 showProductsInCart();
@@ -179,7 +198,12 @@ public class ControllerCashMain implements Initializable {
     private void saveCheck() {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-        checkService.saveCheck(new Check(0, date, time, total));
+        Check newCheck = checkService.saveCheck(new Check(0, date, time, total));
+        int newCheckId = newCheck.getCheckId();
+        for(CheckLine checkLine : checkLines){
+            checkLine.setCheckId(newCheckId);
+            checkLineService.saveCheckLine(checkLine);
+        }
         System.out.println("The check was saved " + date + " " + time);
     }
 }
