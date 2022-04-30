@@ -142,7 +142,8 @@ public class ControllerCashMain implements Initializable {
             Button deleteProductInCart = new Button("Удалить");
 
             CheckLine checkLine = new CheckLine();
-            checkLine.setProductId(p.getProductId());
+            int productId = productService.findProduct(p.getProductName()).getProductId();
+            checkLine.setProductId(productId);
             checkLine.setCheckId(0);
             checkLine.setLineNumber(lineNumber);
             checkLine.setQuantity(p.getQuantity());
