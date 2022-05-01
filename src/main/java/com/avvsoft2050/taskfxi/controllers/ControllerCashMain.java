@@ -205,6 +205,5 @@ public class ControllerCashMain implements Initializable {
             checkLine.setCheckId(newCheckId);
             checkLineService.saveCheckLine(checkLine);
         }
-        System.out.println("The check was saved " + date + " " + time);
     }
 }
