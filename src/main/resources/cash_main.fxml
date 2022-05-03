@@ -4,43 +4,51 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerCashMain">
-    <VBox layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="780.0" spacing="10.0">
+<AnchorPane id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerCashMain">
+    <VBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="780.0" spacing="10.0">
         <HBox>
-            <ListView id="listViewProducts" fx:id="listViewProducts" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="780.0" />
-            <Button fx:id="buttonShowAllProducts" onAction="#buttonShowAllProductsClick" prefHeight="200.0" prefWidth="200.0" text="Показать &#10;товары" textAlignment="CENTER">
+            <ListView id="listViewProducts" fx:id="listViewProducts" layoutX="10.0" layoutY="10.0" prefHeight="200.0"
+                      prefWidth="780.0"/>
+            <Button fx:id="buttonShowAllProducts" onAction="#buttonShowAllProductsClick" prefHeight="200.0"
+                    prefWidth="200.0" text="Показать &#10;товары" textAlignment="CENTER">
                 <font>
-                    <Font size="14.0" />
+                    <Font size="14.0"/>
                 </font>
             </Button>
         </HBox>
-        <TextField id="textFieldSelect" fx:id="textFieldSelect" onKeyReleased="#textFieldSelectReleased" promptText="Введите наименование товара" />
+        <TextField id="textFieldSelect" fx:id="textFieldSelect" onKeyReleased="#textFieldSelectReleased"
+                   promptText="Введите наименование товара"/>
     </VBox>
     <Label id="labelCart" layoutX="10.0" layoutY="255.0" text="Корзина" textAlignment="CENTER">
         <font>
-            <Font size="24.0" />
+            <Font size="24.0"/>
         </font>
     </Label>
-    <HBox id="vBoxCartBar" fx:id="vBoxCartBar" layoutX="10.0" layoutY="285.0" prefHeight="20.0" prefWidth="780.0" spacing="10.0">
-        <Label fx:id="productId" prefWidth="350.0" text="Наименование товара" />
-        <Label fx:id="productCost" prefWidth="100.0" text="Цена" />
-        <Label fx:id="productAmount" prefWidth="100.0" text="Количество" />
-        <Label fx:id="totalAmount" prefWidth="100.0" text="Стоимость" />
-        <Label fx:id="deleteYes" text="Удалять?" />
+    <HBox AnchorPane.rightAnchor="20"  AnchorPane.leftAnchor="20" id="vBoxCartBar" fx:id="vBoxCartBar" layoutX="10.0" layoutY="285.0" prefHeight="20.0" prefWidth="780.0"
+          spacing="10.0">
+        <Label fx:id="productId" prefWidth="350.0" text="Наименование товара"/>
+        <Label fx:id="productCost" prefWidth="100.0" text="Цена"/>
+        <Label fx:id="productAmount" prefWidth="100.0" text="Количество"/>
+        <Label fx:id="totalAmount" prefWidth="100.0" text="Стоимость"/>
+        <Label fx:id="deleteYes" text="Удалять?"/>
     </HBox>
-    <VBox id="vBoxCart" fx:id="vBoxCart" layoutX="10.0" layoutY="305.0" prefHeight="250.0" prefWidth="780.0" spacing="5.0">
+    <VBox AnchorPane.rightAnchor="20"  AnchorPane.leftAnchor="20" id="vBoxCart" fx:id="vBoxCart" layoutX="10.0" layoutY="305.0" prefHeight="250.0" prefWidth="780.0"
+          spacing="5.0">
     </VBox>
-    <HBox layoutX="530.0" layoutY="560.0" spacing="20.0">
+    <HBox AnchorPane.rightAnchor="40" layoutY="560.0" spacing="20.0">
         <Label text="Итого: " textAlignment="CENTER">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Label>
         <Label fx:id="labelTotal" prefWidth="50.0" text="       0" textFill="#0ca222">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Label>
-        <Button fx:id="buttonPay" layoutX="700.0" layoutY="560.0" mnemonicParsing="false" onAction="#buttonPayClicked" text="К оплате" />
+        <Button fx:id="buttonPay" layoutX="700.0" layoutY="560.0" mnemonicParsing="false" onAction="#buttonPayClicked"
+                text="К оплате"/>
     </HBox>
-</Pane>
+</AnchorPane>

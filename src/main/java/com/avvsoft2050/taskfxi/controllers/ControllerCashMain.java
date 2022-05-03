@@ -173,7 +173,7 @@ public class ControllerCashMain implements Initializable {
         Button buttonOK = new Button("Оплатить");
         hBox.getChildren().addAll(label, textFieldPaymentAmount, buttonOK);
         pay.getChildren().addAll(hBox);
-        payStage.setScene(new Scene(pay, 420, 200));
+        payStage.setScene(new Scene(pay, 420, 100));
         payStage.setTitle("Оплата");
         payStage.show();
         buttonOK.setOnAction(event -> {
