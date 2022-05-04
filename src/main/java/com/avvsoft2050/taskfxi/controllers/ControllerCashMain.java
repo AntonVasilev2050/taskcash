@@ -57,7 +57,6 @@ public class ControllerCashMain implements Initializable {
     private int total = 0;
 
 
-
     public ControllerCashMain(ProductServiceImpl productService,
                               ProductInCartServiceImpl productInCartService,
                               CheckServiceImpl checkService,
@@ -201,7 +200,7 @@ public class ControllerCashMain implements Initializable {
         LocalTime time = LocalTime.now();
         Check newCheck = checkService.saveCheck(new Check(0, date, time, total));
         int newCheckId = newCheck.getCheckId();
-        for(CheckLine checkLine : checkLines){
+        for (CheckLine checkLine : checkLines) {
             checkLine.setCheckId(newCheckId);
             checkLineService.saveCheckLine(checkLine);
         }

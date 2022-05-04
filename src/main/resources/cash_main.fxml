@@ -5,9 +5,10 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerCashMain">
-    <VBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="780.0" spacing="10.0">
+            prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerCashMain">
+    <VBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" layoutX="10.0" layoutY="10.0" prefHeight="250.0"
+          prefWidth="780.0" spacing="10.0">
         <HBox>
             <ListView id="listViewProducts" fx:id="listViewProducts" layoutX="10.0" layoutY="10.0" prefHeight="200.0"
                       prefWidth="780.0"/>
@@ -26,7 +27,8 @@
             <Font size="24.0"/>
         </font>
     </Label>
-    <HBox AnchorPane.rightAnchor="20"  AnchorPane.leftAnchor="20" id="vBoxCartBar" fx:id="vBoxCartBar" layoutX="10.0" layoutY="285.0" prefHeight="20.0" prefWidth="780.0"
+    <HBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" id="vBoxCartBar" fx:id="vBoxCartBar" layoutX="10.0"
+          layoutY="285.0" prefHeight="20.0" prefWidth="780.0"
           spacing="10.0">
         <Label fx:id="productId" prefWidth="350.0" text="Наименование товара"/>
         <Label fx:id="productCost" prefWidth="100.0" text="Цена"/>
@@ -34,10 +36,11 @@
         <Label fx:id="totalAmount" prefWidth="100.0" text="Стоимость"/>
         <Label fx:id="deleteYes" text="Удалять?"/>
     </HBox>
-    <VBox AnchorPane.rightAnchor="20"  AnchorPane.leftAnchor="20" id="vBoxCart" fx:id="vBoxCart" layoutX="10.0" layoutY="305.0" prefHeight="250.0" prefWidth="780.0"
+    <VBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" id="vBoxCart" fx:id="vBoxCart" layoutX="10.0"
+          layoutY="305.0" prefHeight="250.0" prefWidth="780.0"
           spacing="5.0">
     </VBox>
-    <HBox AnchorPane.rightAnchor="40" layoutY="560.0" spacing="20.0">
+    <HBox AnchorPane.rightAnchor="40" AnchorPane.bottomAnchor="10" layoutY="560.0" spacing="20.0">
         <Label text="Итого: " textAlignment="CENTER">
             <font>
                 <Font size="18.0"/>

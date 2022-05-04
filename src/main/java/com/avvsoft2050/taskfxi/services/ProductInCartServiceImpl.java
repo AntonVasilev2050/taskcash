@@ -3,6 +3,7 @@ package com.avvsoft2050.taskfxi.services;
 import com.avvsoft2050.taskfxi.dao.ProductInCartRepository;
 import com.avvsoft2050.taskfxi.model.ProductInCart;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -17,6 +18,7 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     ProductInCartRepository productInCartRepository;
 
     @Override
+    @Cacheable("cache1")
     public List<ProductInCart> getAllProductsSorted() {
         return productInCartRepository.findAll().stream()
                 .sorted(Comparator.comparingInt(ProductInCart::getProductId)).collect(Collectors.toList());

@@ -3,7 +3,11 @@ package com.avvsoft2050.taskfxi.services;
 import com.avvsoft2050.taskfxi.dao.ProductRepository;
 import com.avvsoft2050.taskfxi.model.Check;
 import com.avvsoft2050.taskfxi.model.Product;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,11 +23,14 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
+//    @CachePut("cache")
+    @Cacheable("cache")
     public List<Product> getAllProducts() {
         return productRepository.findAll().stream().sorted(Comparator.comparingInt(Product::getProductId)).collect(Collectors.toList());
     }
 
     @Override
+    @Cacheable("cache")
     public Product getProduct(int productId) {
         Product product = new Product();
         Optional<Product> optional = productRepository.findById(productId);
@@ -34,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable("cache")
     public Product findProduct(String productName) {
         return productRepository.findFirstByProductNameEquals(productName);
     }
