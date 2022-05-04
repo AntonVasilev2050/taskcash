@@ -19,7 +19,6 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     ProductInCartRepository productInCartRepository;
 
     @Override
-    @CachePut("cache1")
     public List<ProductInCart> getAllProductsSorted() {
         return productInCartRepository.findAll().stream()
                 .sorted(Comparator.comparingInt(ProductInCart::getProductId)).collect(Collectors.toList());

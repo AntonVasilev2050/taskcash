@@ -23,14 +23,11 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-//    @CachePut("cache")
-    @CachePut("cache")
     public List<Product> getAllProducts() {
         return productRepository.findAll().stream().sorted(Comparator.comparingInt(Product::getProductId)).collect(Collectors.toList());
     }
 
     @Override
-    @CachePut("cache")
     public Product getProduct(int productId) {
         Product product = new Product();
         Optional<Product> optional = productRepository.findById(productId);
@@ -41,7 +38,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @CachePut("cache")
     public Product findProduct(String productName) {
         return productRepository.findFirstByProductNameEquals(productName);
     }
