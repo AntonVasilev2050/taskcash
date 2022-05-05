@@ -1,16 +1,10 @@
 package com.avvsoft2050.taskfxi.services;
 
 import com.avvsoft2050.taskfxi.dao.ProductRepository;
-import com.avvsoft2050.taskfxi.model.Check;
 import com.avvsoft2050.taskfxi.model.Product;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -24,14 +18,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return productRepository.findAll().stream().sorted(Comparator.comparingInt(Product::getProductId)).collect(Collectors.toList());
+        return productRepository.findAll().stream()
+                .sorted(Comparator.comparingInt(Product::getProductId))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Product getProduct(int productId) {
         Product product = new Product();
         Optional<Product> optional = productRepository.findById(productId);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             product = optional.get();
         }
         return product;

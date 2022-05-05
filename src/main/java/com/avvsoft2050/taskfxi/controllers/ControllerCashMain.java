@@ -43,6 +43,7 @@ public class ControllerCashMain implements Initializable {
 
     List<ProductInCart> productsInCart = new ArrayList<>();
     List<CheckLine> checkLines = new ArrayList<>();
+    List<Product> products = new ArrayList<>();
     public Label labelTotal;
     public HBox vBoxCartBar;
     public Label productId;
@@ -69,11 +70,13 @@ public class ControllerCashMain implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        buttonShowAllProductsClick();
+        products = productService.getAllProducts();
+        showProducts(products);
+        showProductsInCart();
     }
 
     public void buttonShowAllProductsClick() {
-        List<Product> products = productService.getAllProducts();
+        products = productService.getAllProducts();
         showProducts(products);
     }
 
@@ -84,12 +87,11 @@ public class ControllerCashMain implements Initializable {
             selectedProduct = listViewProducts.getFocusModel().getFocusedItem();
             putProductIntoCart(selectedProduct);
         });
-        showProductsInCart();
     }
 
     public void textFieldSelectReleased() {
         String select = textFieldSelect.getText().trim();
-        List<Product> productsFiltered = productService.getAllProducts()
+        List<Product> productsFiltered = products
                 .stream().filter(product -> product.getProductName().contains(select)
                         || String.valueOf(product.getProductCost()).startsWith(select))
                 .collect(Collectors.toList());
