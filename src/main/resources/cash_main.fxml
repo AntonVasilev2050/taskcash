@@ -12,7 +12,7 @@
         <HBox>
             <ListView id="listViewProducts" fx:id="listViewProducts" layoutX="10.0" layoutY="10.0" prefHeight="200.0"
                       prefWidth="780.0"/>
-            <Button fx:id="buttonShowAllProducts" onAction="#buttonShowAllProductsClick" prefHeight="200.0"
+            <Button fx:id="buttonShowAllProducts" onAction="#buttonShowAllProductsClicked" prefHeight="200.0"
                     prefWidth="200.0" text="Показать &#10;товары" textAlignment="CENTER">
                 <font>
                     <Font size="14.0"/>
@@ -20,7 +20,7 @@
             </Button>
         </HBox>
         <TextField id="textFieldSelect" fx:id="textFieldSelect" onKeyReleased="#textFieldSelectReleased"
-                   promptText="Введите наименование товара"/>
+                   promptText="Вводите наименование товара или цену для отбора"/>
     </VBox>
     <Label id="labelCart" layoutX="10.0" layoutY="255.0" text="Корзина" textAlignment="CENTER">
         <font>

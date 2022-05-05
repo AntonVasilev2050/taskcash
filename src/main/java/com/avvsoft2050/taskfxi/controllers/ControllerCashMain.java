@@ -43,7 +43,7 @@ public class ControllerCashMain implements Initializable {
 
     List<ProductInCart> productsInCart = new ArrayList<>();
     List<CheckLine> checkLines = new ArrayList<>();
-    List<Product> products = new ArrayList<>();
+    List<Product> allProducts = new ArrayList<>();
     public Label labelTotal;
     public HBox vBoxCartBar;
     public Label productId;
@@ -70,14 +70,14 @@ public class ControllerCashMain implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        products = productService.getAllProducts();
-        showProducts(products);
+        allProducts = productService.getAllProducts();
+        showProducts(allProducts);
         showProductsInCart();
     }
 
-    public void buttonShowAllProductsClick() {
-        products = productService.getAllProducts();
-        showProducts(products);
+    public void buttonShowAllProductsClicked() {
+        allProducts = productService.getAllProducts();
+        showProducts(allProducts);
     }
 
     private void showProducts(List<Product> products) {
@@ -85,26 +85,22 @@ public class ControllerCashMain implements Initializable {
         listViewProducts.setItems(productsObserve);
         listViewProducts.setOnMouseClicked(event -> {
             selectedProduct = listViewProducts.getFocusModel().getFocusedItem();
-            putProductIntoCart(selectedProduct);
+            addProductToCart(selectedProduct);
         });
     }
 
     public void textFieldSelectReleased() {
         String select = textFieldSelect.getText().trim();
-        List<Product> productsFiltered = products
+        List<Product> filteredProducts = allProducts
                 .stream()
                 .filter(product -> product.getProductName().contains(select)
                         ||
                         String.valueOf(product.getProductCost()).startsWith(select))
                 .collect(Collectors.toList());
-        try {
-            showProducts(productsFiltered);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        showProducts(filteredProducts);
     }
 
-    private void putProductIntoCart(Product selectedProduct) {
+    private void addProductToCart(Product selectedProduct) {
         if (selectedProduct == null) {
             return;
         }
@@ -127,40 +123,40 @@ public class ControllerCashMain implements Initializable {
         labelTotal.setText(String.valueOf(total));
         vBoxCart.getChildren().clear();
         checkLines.clear();
-        for (ProductInCart p : productsInCart) {
+        for (ProductInCart product : productsInCart) {
             lineNumber++;
             HBox productInCartHBox = new HBox();
-            String productInCartName = p.getProductName();
+            String productInCartName = product.getProductName();
             Label productInCartNameLabel = new Label(productInCartName);
             productInCartNameLabel.setPrefWidth(380.0);
-            String productInCartCost = String.valueOf(p.getProductCost());
+            String productInCartCost = String.valueOf(product.getProductCost());
             Label productInCartCostLabel = new Label(productInCartCost);
             productInCartCostLabel.setPrefWidth(100.0);
-            String productInCartQuantity = String.valueOf(p.getQuantity());
+            String productInCartQuantity = String.valueOf(product.getQuantity());
             Label productInCartQuantityLabel = new Label(productInCartQuantity);
             productInCartQuantityLabel.setPrefWidth(100);
-            String totalAmount = String.valueOf(p.getProductCost() * p.getQuantity());
-            Label productInCartAmountLabel = new Label(totalAmount);
+            String lineAmount = String.valueOf(product.getProductCost() * product.getQuantity());
+            Label productInCartAmountLabel = new Label(lineAmount);
             productInCartAmountLabel.setPrefWidth(100);
-            Button deleteProductInCart = new Button("Удалить");
+            Button productInCartDeleteButton = new Button("Удалить");
 
             CheckLine checkLine = new CheckLine();
-            int productId = productService.findProduct(p.getProductName()).getProductId();
+            int productId = productService.findProduct(product.getProductName()).getProductId();
             checkLine.setProductId(productId);
             checkLine.setCheckId(0);
             checkLine.setLineNumber(lineNumber);
-            checkLine.setQuantity(p.getQuantity());
-            checkLine.setLineAmount(checkLine.getQuantity() * p.getProductCost());
+            checkLine.setQuantity(product.getQuantity());
+            checkLine.setLineAmount(checkLine.getQuantity() * product.getProductCost());
             checkLines.add(checkLine);
 
-            deleteProductInCart.setOnAction(event -> {
-                productInCartService.deleteProductById(p.getProductId());
+            productInCartDeleteButton.setOnAction(event -> {
+                productInCartService.deleteProductById(product.getProductId());
                 showProductsInCart();
             });
-            total += p.getProductCost() * p.getQuantity();
+            total += product.getProductCost() * product.getQuantity();
             labelTotal.setText(String.valueOf(total));
             productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel,
-                    productInCartQuantityLabel, productInCartAmountLabel, deleteProductInCart);
+                    productInCartQuantityLabel, productInCartAmountLabel, productInCartDeleteButton);
             vBoxCart.getChildren().add(productInCartHBox);
         }
     }
@@ -177,7 +173,7 @@ public class ControllerCashMain implements Initializable {
         hBox.getChildren().addAll(label, textFieldPaymentAmount, buttonOK);
         pay.getChildren().addAll(hBox);
         payStage.setScene(new Scene(pay, 420, 100));
-        payStage.setTitle("Оплата");
+        payStage.setTitle("Оплата: " + total);
         payStage.show();
         buttonOK.setOnAction(event -> {
             int paymentAmount = 0;
