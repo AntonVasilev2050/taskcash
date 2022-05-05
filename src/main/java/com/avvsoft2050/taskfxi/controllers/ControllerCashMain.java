@@ -92,8 +92,10 @@ public class ControllerCashMain implements Initializable {
     public void textFieldSelectReleased() {
         String select = textFieldSelect.getText().trim();
         List<Product> productsFiltered = products
-                .stream().filter(product -> product.getProductName().contains(select)
-                        || String.valueOf(product.getProductCost()).startsWith(select))
+                .stream()
+                .filter(product -> product.getProductName().contains(select)
+                        ||
+                        String.valueOf(product.getProductCost()).startsWith(select))
                 .collect(Collectors.toList());
         try {
             showProducts(productsFiltered);

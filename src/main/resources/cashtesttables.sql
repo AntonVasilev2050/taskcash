@@ -5,12 +5,16 @@ CREATE TABLE goods
     product_cost int
 );
 INSERT INTO goods
-VALUES (1, 'Product12', 1500),
+VALUES (1, 'Tea black', 200),
        (2, 'Coffee Americano', 120),
        (3, 'Latte coffee', 150),
        (4, 'Product2', 1900),
-       (5, 'Product3', 100),
-       (6, 'Coffee espresso', 70);
+       (5, 'Sugar', 30),
+       (6, 'Sugar super sweet', 130),
+       (7, 'Tea green', 200),
+       (8, 'Tea red', 210),
+       (9, 'Fresh water', 100),
+       (10, 'Coffee espresso', 70);
 
 CREATE TABLE checks
 (
