@@ -16,14 +16,16 @@ public class ProductInCartServiceImpl implements ProductInCartService {
 
     @Override
     public List<ProductInCart> getAllProductsSorted() {
-        return productInCartList.stream().sorted(Comparator.comparingInt(ProductInCart::getProductId)).collect(Collectors.toList());
+        return productInCartList
+                .stream()
+                .sorted(Comparator.comparingInt(ProductInCart::getProductId))
+                .collect(Collectors.toList());
     }
 
     @Override
     public ProductInCart saveProduct(ProductInCart productInCart) {
         if (!productInCartList.contains(productInCart)) {
             productInCart.setProductId(productInCartList.size());
-            System.out.println(productInCart.getProductId());
             productInCartList.add(productInCart);
         } else {
             int index = productInCartList.indexOf(productInCart);
@@ -36,11 +38,11 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     public void deleteProductById(int productId) {
         ProductInCart productInCartToRemove = null;
         for (ProductInCart productInCart : productInCartList) {
-            if(productInCart.getProductId() == productId){
+            if (productInCart.getProductId() == productId) {
                 productInCartToRemove = productInCart;
             }
         }
-        if(productInCartToRemove != null){
+        if (productInCartToRemove != null) {
             productInCartList.remove(productInCartToRemove);
         }
     }
@@ -48,11 +50,6 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     @Override
     public void deleteAllProducts() {
         productInCartList.clear();
-    }
-
-    @Override
-    public ProductInCart getProductById(int productId) {
-        return productInCartList.get(productId);
     }
 
     @Override

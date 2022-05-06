@@ -33,11 +33,3 @@ CREATE TABLE checklines
     quantity     int,
     line_amount  int
 );
-
-CREATE TABLE cart
-(
-    product_id   serial PRIMARY KEY,
-    product_name varchar(50) not null,
-    product_cost int,
-    product_quantity int
-);

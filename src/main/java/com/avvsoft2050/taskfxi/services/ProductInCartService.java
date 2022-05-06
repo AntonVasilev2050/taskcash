@@ -9,6 +9,5 @@ public interface ProductInCartService {
     ProductInCart saveProduct(ProductInCart productInCart);
     void deleteProductById(int productId);
     void deleteAllProducts();
-    ProductInCart getProductById(int productId);
     ProductInCart findProduct(String productInCartName);
 }
