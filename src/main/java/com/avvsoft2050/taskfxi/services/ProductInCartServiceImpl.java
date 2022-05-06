@@ -1,7 +1,6 @@
 package com.avvsoft2050.taskfxi.services;
 
 import com.avvsoft2050.taskfxi.model.ProductInCart;
-import org.hibernate.collection.internal.PersistentList;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
