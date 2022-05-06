@@ -2,7 +2,6 @@ package com.avvsoft2050.taskfxi.services;
 
 import com.avvsoft2050.taskfxi.dao.CheckRepository;
 import com.avvsoft2050.taskfxi.model.Check;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @Service
 public class CheckServiceImpl implements CheckService{
 
-    @Autowired
-    CheckRepository checkRepository;
+    final CheckRepository checkRepository;
+
+    public CheckServiceImpl(CheckRepository checkRepository) {
+        this.checkRepository = checkRepository;
+    }
 
 
     @Override
