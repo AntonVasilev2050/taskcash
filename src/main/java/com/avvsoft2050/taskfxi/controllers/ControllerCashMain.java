@@ -41,9 +41,8 @@ public class ControllerCashMain implements Initializable {
     final CheckLineServiceImpl checkLineService;
 
 
-    List<ProductInCart> productsInCart = new ArrayList<>();
-    List<CheckLine> checkLines = new ArrayList<>();
-    List<Product> allProducts = new ArrayList<>();
+    private final List<CheckLine> checkLines = new ArrayList<>();
+    private List<Product> allProducts = new ArrayList<>();
     public Label labelTotal;
     public HBox vBoxCartBar;
     public Label productId;
@@ -117,7 +116,7 @@ public class ControllerCashMain implements Initializable {
     }
 
     private void showProductsInCart() {
-        productsInCart = productInCartService.getAllProductsSorted();
+        List<ProductInCart> productsInCart = productInCartService.getAllProductsSorted();
         total = 0;
         int lineNumber = 0;
         labelTotal.setText(String.valueOf(total));
