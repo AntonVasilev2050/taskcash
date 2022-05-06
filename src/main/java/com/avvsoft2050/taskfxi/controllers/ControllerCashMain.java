@@ -154,8 +154,12 @@ public class ControllerCashMain implements Initializable {
             });
             total += product.getProductCost() * product.getQuantity();
             labelTotal.setText(String.valueOf(total));
-            productInCartHBox.getChildren().addAll(productInCartNameLabel, productInCartCostLabel,
-                    productInCartQuantityLabel, productInCartAmountLabel, productInCartDeleteButton);
+            productInCartHBox.getChildren().addAll(
+                    productInCartNameLabel,
+                    productInCartCostLabel,
+                    productInCartQuantityLabel,
+                    productInCartAmountLabel,
+                    productInCartDeleteButton);
             vBoxCart.getChildren().add(productInCartHBox);
         }
     }
