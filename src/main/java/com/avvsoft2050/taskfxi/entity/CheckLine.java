@@ -1,13 +1,10 @@
-package com.avvsoft2050.taskfxi.model;
+package com.avvsoft2050.taskfxi.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "checklines")
 public class CheckLine {

@@ -1,11 +1,9 @@
-package com.avvsoft2050.taskfxi.model;
+package com.avvsoft2050.taskfxi.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "goods")

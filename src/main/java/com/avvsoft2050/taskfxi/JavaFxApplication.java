@@ -1,5 +1,4 @@
 package com.avvsoft2050.taskfxi;
-
 import com.avvsoft2050.taskfxi.controllers.ControllerCashMain;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -38,6 +37,4 @@ public class JavaFxApplication extends Application {
         this.applicationContext.close();
         Platform.exit();
     }
-
-
 }

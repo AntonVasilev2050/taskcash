@@ -1,6 +1,6 @@
 package com.avvsoft2050.taskfxi.services;
 
-import com.avvsoft2050.taskfxi.model.Check;
+import com.avvsoft2050.taskfxi.entity.Check;
 
 import java.util.List;
 

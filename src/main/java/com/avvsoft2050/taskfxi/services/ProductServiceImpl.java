@@ -1,7 +1,7 @@
 package com.avvsoft2050.taskfxi.services;
 
 import com.avvsoft2050.taskfxi.dao.ProductRepository;
-import com.avvsoft2050.taskfxi.model.Product;
+import com.avvsoft2050.taskfxi.entity.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;

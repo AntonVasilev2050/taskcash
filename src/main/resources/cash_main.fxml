@@ -12,7 +12,7 @@
         <HBox>
             <ListView id="listViewProducts" fx:id="listViewProducts" layoutX="10.0" layoutY="10.0" prefHeight="200.0"
                       prefWidth="780.0"/>
-            <Button fx:id="buttonShowAllProducts" onAction="#buttonShowAllProductsClicked" prefHeight="200.0"
+            <Button onAction="#buttonShowAllProductsClicked" prefHeight="200.0"
                     prefWidth="200.0" text="Показать &#10;товары" textAlignment="CENTER">
                 <font>
                     <Font size="14.0"/>
@@ -27,14 +27,14 @@
             <Font size="24.0"/>
         </font>
     </Label>
-    <HBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" id="vBoxCartBar" fx:id="vBoxCartBar" layoutX="10.0"
+    <HBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" id="vBoxCartBar" layoutX="10.0"
           layoutY="285.0" prefHeight="20.0" prefWidth="780.0"
           spacing="10.0">
-        <Label fx:id="productId" prefWidth="350.0" text="Наименование товара"/>
-        <Label fx:id="productCost" prefWidth="100.0" text="Цена"/>
-        <Label fx:id="productAmount" prefWidth="100.0" text="Количество"/>
-        <Label fx:id="totalAmount" prefWidth="100.0" text="Стоимость"/>
-        <Label fx:id="deleteYes" text="Удалять?"/>
+        <Label prefWidth="350.0" text="Наименование товара"/>
+        <Label prefWidth="100.0" text="Цена"/>
+        <Label prefWidth="100.0" text="Количество"/>
+        <Label prefWidth="100.0" text="Стоимость"/>
+        <Label text="Удалять?"/>
     </HBox>
     <VBox AnchorPane.rightAnchor="20" AnchorPane.leftAnchor="20" id="vBoxCart" fx:id="vBoxCart" layoutX="10.0"
           layoutY="305.0" prefHeight="250.0" prefWidth="780.0"
@@ -51,7 +51,7 @@
                 <Font size="18.0"/>
             </font>
         </Label>
-        <Button fx:id="buttonPay" layoutX="700.0" layoutY="560.0" mnemonicParsing="false" onAction="#buttonPayClicked"
+        <Button layoutX="700.0" layoutY="560.0" mnemonicParsing="false" onAction="#buttonPayClicked"
                 text="К оплате"/>
     </HBox>
 </AnchorPane>
