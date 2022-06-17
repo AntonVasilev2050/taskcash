@@ -1,7 +1,7 @@
 package com.avvsoft2050.taskfxi.services;
 
 import com.avvsoft2050.taskfxi.dao.CheckRepository;
-import com.avvsoft2050.taskfxi.model.Check;
+import com.avvsoft2050.taskfxi.entity.Check;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

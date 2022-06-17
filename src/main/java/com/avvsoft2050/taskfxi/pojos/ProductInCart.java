@@ -1,4 +1,4 @@
-package com.avvsoft2050.taskfxi.model;
+package com.avvsoft2050.taskfxi.pojos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

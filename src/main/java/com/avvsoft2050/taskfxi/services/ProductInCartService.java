@@ -1,6 +1,6 @@
 package com.avvsoft2050.taskfxi.services;
 
-import com.avvsoft2050.taskfxi.model.ProductInCart;
+import com.avvsoft2050.taskfxi.pojos.ProductInCart;
 
 import java.util.List;
 
