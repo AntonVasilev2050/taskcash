@@ -15,7 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 @Component
 @FxmlView("/cash_main.fxml")
@@ -60,13 +59,7 @@ public class ControllerCashMain implements Initializable {
     }
 
     public void textFieldSelectReleased() {
-        String select = textFieldSelect.getText().trim();
-        List<Product> filteredProducts = allProducts
-                .stream()
-                .filter(product -> product.getProductName().contains(select)
-                        |
-                        String.valueOf(product.getProductCost()).startsWith(select))
-                .collect(Collectors.toList());
+        List<Product> filteredProducts =cashMainService.filterProducts(allProducts, textFieldSelect);
         cashMainService.showProducts(filteredProducts, listViewProducts, labelTotal, vBoxCart);
     }
 

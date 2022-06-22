@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CashMainServiceImpl implements CashMainService {
@@ -166,5 +167,16 @@ public class CashMainServiceImpl implements CashMainService {
             checkLine.setCheckId(newCheckId);
             checkLineService.saveCheckLine(checkLine);
         }
+    }
+
+    @Override
+    public List<Product> filterProducts(List<Product> allProducts, TextField textFieldSelect) {
+        String select = textFieldSelect.getText().trim();
+        return allProducts
+                .stream()
+                .filter(product -> product.getProductName().contains(select)
+                        ||
+                        String.valueOf(product.getProductCost()).startsWith(select))
+                .collect(Collectors.toList());
     }
 }
