@@ -26,8 +26,9 @@ import java.util.stream.Collectors;
 @Service
 public class CashMainServiceImpl implements CashMainService {
     private final List<CheckLine> checkLines = new ArrayList<>();
-    private Product selectedProduct;
     private int total = 0;
+    private Product selectedProduct;
+
 
     final ProductService productService;
     final ProductInCartService productInCartService;
@@ -42,6 +43,16 @@ public class CashMainServiceImpl implements CashMainService {
         this.productInCartService = productInCartService;
         this.checkService = checkService;
         this.checkLineService = checkLineService;
+    }
+
+    @Override
+    public List<CheckLine> getCheckLines() {
+        return checkLines;
+    }
+
+    @Override
+    public int getTotal() {
+        return total;
     }
 
     @Override
@@ -120,52 +131,6 @@ public class CashMainServiceImpl implements CashMainService {
                     productInCartAmountLabel,
                     productInCartDeleteButton);
             vBoxCart.getChildren().add(productInCartHBox);
-        }
-    }
-
-    @Override
-    public void pay(Label labelTotal, VBox vBoxCart) {
-        Stage payStage = new Stage();
-        Group pay = new Group();
-        HBox hBox = new HBox();
-        hBox.setSpacing(10);
-        Label label = new Label("Сумма оплаты");
-        TextField textFieldPaymentAmount = new TextField();
-        textFieldPaymentAmount.setPromptText(" Введите сумму");
-        Button buttonOK = new Button("Оплатить");
-        hBox.getChildren().addAll(label, textFieldPaymentAmount, buttonOK);
-        pay.getChildren().addAll(hBox);
-        payStage.setScene(new Scene(pay, 420, 100));
-        payStage.setTitle("Оплата: " + total);
-        payStage.show();
-        buttonOK.setOnAction(event -> {
-            int paymentAmount = 0;
-            try {
-                paymentAmount = Integer.parseInt(textFieldPaymentAmount.getText());
-            } catch (Exception e) {
-                textFieldPaymentAmount.setText("Ошибка ввода");
-            }
-            if (paymentAmount == total) {
-                saveCheck();
-                payStage.close();
-                productInCartService.deleteAllProducts();
-                showProductsInCart(labelTotal, vBoxCart);
-            } else {
-                if (paymentAmount != 0) {
-                    textFieldPaymentAmount.setText("Не верная сумма");
-                }
-            }
-        });
-    }
-
-    private void saveCheck() {
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        Check newCheck = checkService.saveCheck(new Check(0, date, time, total));
-        int newCheckId = newCheck.getCheckId();
-        for (CheckLine checkLine : checkLines) {
-            checkLine.setCheckId(newCheckId);
-            checkLineService.saveCheckLine(checkLine);
         }
     }
 
