@@ -20,8 +20,8 @@ import java.time.LocalTime;
 @Service
 public class PayServiceImpl implements PayService  {
 
-    Scene scene;
-    Stage payStage;
+    private Scene scene;
+    private Stage payStage;
 
     private final ConfigurableApplicationContext applicationContext;
     private final ProductInCartService productInCartService;

@@ -21,9 +21,6 @@ import java.util.ResourceBundle;
 public class ControllerCashMain implements Initializable {
 
     final ProductService productService;
-    final ProductInCartService productInCartService;
-    final CheckService checkService;
-    final CheckLineService checkLineService;
     final CashMainService cashMainService;
     final PayService payService;
 
@@ -36,15 +33,9 @@ public class ControllerCashMain implements Initializable {
 
     @Autowired
     public ControllerCashMain(ProductService productService,
-                              ProductInCartService productInCartService,
-                              CheckService checkService,
-                              CheckLineService checkLineService,
                               CashMainService cashMainService,
                               PayService payService) {
         this.productService = productService;
-        this.productInCartService = productInCartService;
-        this.checkService = checkService;
-        this.checkLineService = checkLineService;
         this.cashMainService = cashMainService;
         this.payService = payService;
     }
