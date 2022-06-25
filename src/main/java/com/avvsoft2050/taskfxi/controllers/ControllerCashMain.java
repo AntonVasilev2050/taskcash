@@ -20,9 +20,9 @@ import java.util.ResourceBundle;
 @FxmlView("/cash_main.fxml")
 public class ControllerCashMain implements Initializable {
 
-    final ProductService productService;
-    final CashMainService cashMainService;
-    final PayService payService;
+    private final ProductService productService;
+    private final CashMainService cashMainService;
+    private final PayService payService;
 
     public Label labelTotal;
     public TextField textFieldSelect;
