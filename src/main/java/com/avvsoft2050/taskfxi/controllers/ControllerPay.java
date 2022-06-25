@@ -1,5 +1,6 @@
 package com.avvsoft2050.taskfxi.controllers;
 
+import com.avvsoft2050.taskfxi.services.PayService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -11,4 +12,16 @@ import org.springframework.stereotype.Component;
 public class ControllerPay {
     public Button buttonPay;
     public TextField textFieldPaymentAmount;
+
+    private final PayService payService;
+    private final ControllerCashMain controllerCashMain;
+
+    public ControllerPay(PayService payService, ControllerCashMain controllerCashMain) {
+        this.payService = payService;
+        this.controllerCashMain = controllerCashMain;
+    }
+
+    public void buttonPayClicked(ActionEvent actionEvent) {
+        payService.finishPayment(controllerCashMain.labelTotal, controllerCashMain.vBoxCart, textFieldPaymentAmount);
+    }
 }

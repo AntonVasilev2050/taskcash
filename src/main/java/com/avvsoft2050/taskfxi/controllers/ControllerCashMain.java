@@ -25,7 +25,7 @@ public class ControllerCashMain implements Initializable {
     final CheckService checkService;
     final CheckLineService checkLineService;
     final CashMainService cashMainService;
-    final PayServiceImpl payServiceImpl;
+    final PayService payService;
 
     public Label labelTotal;
     public TextField textFieldSelect;
@@ -39,13 +39,14 @@ public class ControllerCashMain implements Initializable {
                               ProductInCartService productInCartService,
                               CheckService checkService,
                               CheckLineService checkLineService,
-                              CashMainService cashMainService, PayServiceImpl payServiceImpl) {
+                              CashMainService cashMainService,
+                              PayService payService) {
         this.productService = productService;
         this.productInCartService = productInCartService;
         this.checkService = checkService;
         this.checkLineService = checkLineService;
         this.cashMainService = cashMainService;
-        this.payServiceImpl = payServiceImpl;
+        this.payService = payService;
     }
 
     @Override
@@ -66,6 +67,7 @@ public class ControllerCashMain implements Initializable {
     }
 
     public void buttonPayClicked() {
-        payServiceImpl.pay(labelTotal, vBoxCart);
+        payService.startPayment();
+
     }
 }

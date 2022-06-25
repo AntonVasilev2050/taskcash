@@ -6,6 +6,7 @@ import com.avvsoft2050.taskfxi.entity.CheckLine;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -19,53 +20,57 @@ import java.time.LocalTime;
 @Service
 public class PayServiceImpl implements PayService  {
 
+    Scene scene;
+    Stage payStage;
+
     private final ConfigurableApplicationContext applicationContext;
     private final ProductInCartService productInCartService;
     private final CheckService checkService;
     private final CheckLineService checkLineService;
     private final CashMainService cashMainService;
-    private final ControllerPay controllerPay;
 
     @Autowired
     public PayServiceImpl(ConfigurableApplicationContext applicationContext,
                           ProductInCartService productInCartService,
                           CheckService checkService,
-                          CheckLineService checkLineService, CashMainService cashMainService, ControllerPay controllerPay) {
+                          CheckLineService checkLineService,
+                          CashMainService cashMainService) {
         this.applicationContext = applicationContext;
         this.productInCartService = productInCartService;
         this.checkService = checkService;
         this.checkLineService = checkLineService;
         this.cashMainService = cashMainService;
-        this.controllerPay = controllerPay;
     }
 
     @Override
-    public void pay(Label labelTotal, VBox vBoxCart) {
+    public void startPayment() {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
         Parent root = fxWeaver.loadView(ControllerPay.class);      //подключаем контроллер
-        Scene scene = new Scene(root);
-        Stage payStage = new Stage();
+        scene = new Scene(root);
+        payStage = new Stage();
         payStage.setScene(scene);
         payStage.setTitle("Оплата-");
         payStage.show();
-        controllerPay.buttonPay.setOnAction(event -> {
-            int paymentAmount = 0;
-            try {
-                paymentAmount = Integer.parseInt(controllerPay.textFieldPaymentAmount.getText());
-            } catch (Exception e) {
-                controllerPay.textFieldPaymentAmount.setText("Ошибка ввода");
+    }
+
+    @Override
+    public void finishPayment(Label labelTotal, VBox vBoxCart, TextField textFieldPaymentAmount){
+        int paymentAmount = 0;
+        try {
+            paymentAmount = Integer.parseInt(textFieldPaymentAmount.getText());
+        } catch (Exception e) {
+            textFieldPaymentAmount.setText("Ошибка ввода");
+        }
+        if (paymentAmount == cashMainService.getTotal()) {
+            saveCheck();
+            payStage.close();
+            productInCartService.deleteAllProducts();
+            cashMainService.showProductsInCart(labelTotal, vBoxCart);
+        } else {
+            if (paymentAmount != 0) {
+                textFieldPaymentAmount.setText("Не верная сумма");
             }
-            if (paymentAmount == cashMainService.getTotal()) {
-                saveCheck();
-                payStage.close();
-                productInCartService.deleteAllProducts();
-                cashMainService.showProductsInCart(labelTotal, vBoxCart);
-            } else {
-                if (paymentAmount != 0) {
-                    controllerPay.textFieldPaymentAmount.setText("Не верная сумма");
-                }
-            }
-        });
+        }
     }
 
     private void saveCheck() {
