@@ -47,7 +47,7 @@ public class PayServiceImpl implements PayService  {
         scene = new Scene(root);
         payStage = new Stage();
         payStage.setScene(scene);
-        payStage.setTitle("Оплата-");
+        payStage.setTitle("Оплата- " + cashMainService.getTotal());
         payStage.show();
     }
 

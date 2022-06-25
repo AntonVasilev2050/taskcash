@@ -3,10 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerPay">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0"
+            prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.avvsoft2050.taskfxi.controllers.ControllerPay">
     <HBox spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="5.0">
-        <Label text="Сумма оплаты" />
-        <TextField fx:id="textFieldPaymentAmount" />
-        <Button fx:id="buttonPay" mnemonicParsing="false" onAction="#buttonPayClicked" text="Оплатить" />
+        <Label text="Сумма оплаты"/>
+        <TextField fx:id="textFieldPaymentAmount"/>
+        <Button mnemonicParsing="false" onAction="#buttonPayClicked" text="Оплатить"/>
     </HBox>
 </AnchorPane>
