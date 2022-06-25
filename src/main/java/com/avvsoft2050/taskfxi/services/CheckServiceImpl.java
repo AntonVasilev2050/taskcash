@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckServiceImpl implements CheckService{
 
-    final CheckRepository checkRepository;
+    private final CheckRepository checkRepository;
 
     public CheckServiceImpl(CheckRepository checkRepository) {
         this.checkRepository = checkRepository;

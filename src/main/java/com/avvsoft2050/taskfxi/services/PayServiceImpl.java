@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,6 @@ public class PayServiceImpl implements PayService  {
     private final CheckLineService checkLineService;
     private final CashMainService cashMainService;
 
-    @Autowired
     public PayServiceImpl(ConfigurableApplicationContext applicationContext,
                           ProductInCartService productInCartService,
                           CheckService checkService,

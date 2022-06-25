@@ -1,24 +1,18 @@
 package com.avvsoft2050.taskfxi.services;
 
-import com.avvsoft2050.taskfxi.entity.Check;
 import com.avvsoft2050.taskfxi.entity.CheckLine;
 import com.avvsoft2050.taskfxi.entity.Product;
 import com.avvsoft2050.taskfxi.pojos.ProductInCart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,17 +26,11 @@ public class CashMainServiceImpl implements CashMainService {
 
     final ProductService productService;
     final ProductInCartService productInCartService;
-    final CheckService checkService;
-    final CheckLineService checkLineService;
 
     public CashMainServiceImpl(ProductService productService,
-                               ProductInCartService productInCartService,
-                               CheckService checkService,
-                               CheckLineService checkLineService) {
+                               ProductInCartService productInCartService) {
         this.productService = productService;
         this.productInCartService = productInCartService;
-        this.checkService = checkService;
-        this.checkLineService = checkLineService;
     }
 
     @Override

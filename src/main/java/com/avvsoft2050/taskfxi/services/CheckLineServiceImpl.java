@@ -7,13 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckLineServiceImpl implements CheckLineService{
 
-    final
-    CheckLineRepository checkLineRepository;
+    private final CheckLineRepository checkLineRepository;
 
     public CheckLineServiceImpl(CheckLineRepository checkLineRepository) {
         this.checkLineRepository = checkLineRepository;
     }
-
 
     @Override
     public CheckLine saveCheckLine(CheckLine checkLine) {
