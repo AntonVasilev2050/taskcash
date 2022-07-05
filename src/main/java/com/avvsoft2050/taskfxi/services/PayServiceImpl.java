@@ -19,7 +19,6 @@ import java.time.LocalTime;
 @Service
 public class PayServiceImpl implements PayService  {
 
-    private Scene scene;
     private Stage payStage;
 
     private final ConfigurableApplicationContext applicationContext;
@@ -41,10 +40,10 @@ public class PayServiceImpl implements PayService  {
     }
 
     @Override
-    public void startPayment() {
+    public void showPaymentWindow() {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
         Parent root = fxWeaver.loadView(ControllerPay.class);      //подключаем контроллер
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         payStage = new Stage();
         payStage.setScene(scene);
         payStage.setTitle("Оплата- " + cashMainService.getTotal());

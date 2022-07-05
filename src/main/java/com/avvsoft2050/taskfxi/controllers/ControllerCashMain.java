@@ -58,7 +58,7 @@ public class ControllerCashMain implements Initializable {
     }
 
     public void buttonPayClicked() {
-        payService.startPayment();
+        payService.showPaymentWindow();
 
     }
 }

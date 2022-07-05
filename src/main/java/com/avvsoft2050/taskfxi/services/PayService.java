@@ -5,6 +5,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public interface PayService {
-    void startPayment();
+    void showPaymentWindow();
     void finishPayment(Label labelTotal, VBox vBoxCart, TextField textFieldPaymentAmount);
 }
